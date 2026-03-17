@@ -1,9 +1,9 @@
 on init
-    start vendor.gatekeeper_default
+    start vendor.keymint-qti
 
-service vendor.gatekeeper_default /vendor/bin/hw/android.hardware.gatekeeper-service-qti
+service vendor.keymint-qti /vendor/bin/hw/android.hardware.security.onekeymint-service-qti
     class early_hal
     user root
-    group root
+    group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/odm/lib64:/system/lib64:/sbin
     seclabel u:r:recovery:s0
