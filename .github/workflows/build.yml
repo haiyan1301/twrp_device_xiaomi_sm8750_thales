@@ -11,14 +11,7 @@ on:
         description: "TWRP branch"
         required: true
         default: "twrp-16.0"
-      DEVICE_TREE_URL:
-        description: "Device tree url"
-        required: true
-        default: "https://github.com/YuKongA/twrp_device_xiaomi_sm8850_nezha"
-      DEVICE_TREE_BRANCH:
-        description: "Device tree branch"
-        required: true
-        default: "twrp-16.0"
+
       DEVICE_PATH:
         description: "Device path device/"
         required: true
@@ -54,8 +47,7 @@ jobs:
           echo
           echo Manifest url: ${{ github.event.inputs.TWRP_MANIFEST_URL }}
           echo Manifest branch: ${{ github.event.inputs.TWRP_MANIFEST_BRANCH }}
-          echo Device tree url: ${{ github.event.inputs.DEVICE_TREE_URL }}
-          echo Device tree branch: ${{ github.event.inputs.DEVICE_TREE_BRANCH }}
+
           echo Device path: ${{ github.event.inputs.DEVICE_PATH }}
           echo Device name: ${{ github.event.inputs.DEVICE_NAME }}
           echo Lunch target: ${{ github.event.inputs.LUNCH_TARGET }}
@@ -103,9 +95,10 @@ jobs:
         repo sync
         kill $TIP_PID && exit 0
 
-    - name: Setup device
-      run: |
-        git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} device/${{ github.event.inputs.DEVICE_PATH }}
+    - name: Checkout device tree
+      uses: actions/checkout@v4
+      with:
+        path: device/${{ github.event.inputs.DEVICE_PATH }}
 
     - name: Generate build info
       run: |

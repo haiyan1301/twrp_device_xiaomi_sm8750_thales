@@ -1,6 +1,6 @@
 <!--
     Input:
-        device/qcom/sun/manifest_sun.xml
+        device/qcom/canoe/manifest_canoe.xml
 -->
 <manifest version="8.0" type="device">
     <hal format="aidl">
